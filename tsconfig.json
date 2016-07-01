@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noEmitOnError": true,
+        "noExternalResolve": false,
+        "declarationFiles": true,
+        "outDir": "build"
+    },
+    "compileOnSave": false,
+    "files": [
+        "src/api/permissions/Permissions.ts",
+        "src/api/v1/product/ProductController.ts",
+        "src/api/v1/product/ProductResponse.ts",
+        "src/config/express.ts",
+        "src/config/routes.ts",
+        "src/server/app.ts",
+        "typings/tsd.d.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
