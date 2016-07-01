@@ -1,0 +1,7 @@
+curl -i -X GET http://localhost:8080/v1/product/555
+curl -i -X GET http://localhost:8080/v1/product/555?include_inactive=true
+curl -i -X GET http://localhost:8080/v1/product/13860430
+curl -i -X POST -H 'Content-Type: application/json' -d '{"current_price": {"value": "3.99", "currency_code":"USD"}}' http://localhost:8080/v1/product/555
+curl -i -X POST -H 'Content-Type: application/json' -d '{"current_price": {"value": "3.99", "currency_code":"USD"}}' http://localhost:8080/v1/product/13860430
+curl -i -X PUT -H 'Content-Type: application/json' -d '{"name": "UPDATED"}' http://localhost:8080/v1/product/555
+curl -i -X PUT -H 'Content-Type: application/json' -d '{"status": "inactive"}' http://localhost:8080/v1/product/555

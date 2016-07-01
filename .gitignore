@@ -1,0 +1,9 @@
+build
+node_modules
+typings
+mongo
+.git
+logs
+*.log
+*.pid
+*.seed
