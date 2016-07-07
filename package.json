@@ -31,7 +31,7 @@
         "method-override": "^2.3.5",
         "mongoose": "^4.4.19",
         "nodemon": "^1.8.1",
-        "yogats": "^0.1.0",
+        "yogats": "^0.1.1",
         "request": "^2.67.0",
         "request-ip": "1.1.4",
         "request-promise": "^2.0.0",

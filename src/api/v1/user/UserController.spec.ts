@@ -5,39 +5,38 @@ import mongoose = require('mongoose');
 import should = require('should');
 import request = require('supertest');
 
-import {ProductManager, ProductInterface, Product, ProductStatus} from 'productts';
+import {UserManager, UserInterface, User, UserStatus} from 'yogats';
 
-import ExternalProductManager = require('./ExternalProductManager');
-import ProductResponse = require('./ProductResponse');
+import UserResponse = require('./UserResponse');
 import Permissions = require('../../permissions/Permissions');
 
 var app: any = require("../../../server/app");
 
-var product1 = new Product({ gid: 13860420, current_price: { value: 3.99, currency_code: "USD" } });
-var product2_id = '12345678';
+var user1 = new User({ last_name: "Schloegel", first_name: "Ramona" });
+var user2_id = '12345678';
 
 function createTestData(done: () => any) {
     async.auto({
-        product1: (cb) => ProductManager.create(product1, cb)
+        user1: (cb) => UserManager.create(user1, cb)
     }, (err, results: any) => {
         should.not.exist(err);
         should.exist(results);
-        should.exist(results.product1);
+        should.exist(results.user1);
         done();
     });
 }
 
 function cleanUpTestData(done: () => any) {
     async.auto({
-        product1: (cb) => ProductManager.removeById(product1.gid.toString(), cb),
-        product2: (cb) => ProductManager.removeById(product2_id, cb)
+        user1: (cb) => UserManager.removeById(user1.id.toString(), cb),
+        user2: (cb) => UserManager.removeById(user2_id, cb)
     }, (err, results: any) => {
         should.not.exist(err);
         done();
     });
 }
 
-describe("Product API", () => {
+describe("User API", () => {
     beforeEach(done => {
         createTestData(done);
     });
@@ -46,21 +45,21 @@ describe("Product API", () => {
         cleanUpTestData(done);
     });
 
-    describe("GET /v1/product/{id}", () => {
-        it("should respond the product data for a valid id", done => {
-            var uri = "/v1/product/" + product1.gid.toString();
+    describe("GET /v1/user/{id}", () => {
+        it("should respond the user data for a valid id", done => {
+            var uri = "/v1/user/" + user1.id.toString();
             request(app)
                 .get(uri)
                 .end((err, res) => {
                     should.not.exist(err);
                     res.status.should.eql(http_status.OK);
-                    should.equal(product1.gid, res.body.id);
+                    should.equal(user1.id, res.body.id);
                     done();
                 });
         });
 
         it("should respond with Not Found for an invalid id", done => {
-            var uri = "/v1/product/xzy";
+            var uri = "/v1/user/xzy";
             request(app)
                 .get(uri)
                 .end((err, res) => {
@@ -72,12 +71,12 @@ describe("Product API", () => {
         });
     });
 
-    describe("PUT /v1/product/{id}", () => {
+    describe("PUT /v1/user/{id}", () => {
         it("should respond OK for a successful update", done => {
-            var uri = "/v1/product/" + product1.gid.toString();
+            var uri = "/v1/user/" + user1.id.toString();
             request(app)
                 .put(uri)
-                .send({ current_price: { value: 0, currency_code: "USD" } })
+                .send({ last_name: "S" })
                 .end((err, res) => {
                     should.not.exist(err);
                     res.status.should.eql(http_status.OK);
@@ -87,15 +86,15 @@ describe("Product API", () => {
                             should.not.exist(err);
                             res.status.should.eql(http_status.OK);
                             var response = res.body;
-                            should.equal(product1.gid, response.id);
-                            should.equal('0', response.current_price.value);
+                            should.equal(user1.id, response.id);
+                            should.equal('S', response.last_name);
                             done();
                         });
                 });
         });
 
         it("should respond with Not Found for an invalid id", done => {
-            var uri = "/v1/product/abc";
+            var uri = "/v1/user/abc";
             request(app)
                 .put(uri)
                 .end((err, res) => {
@@ -107,23 +106,23 @@ describe("Product API", () => {
         });
     });
 
-    describe("POST /v1/product/{id}", () => {
-        it("should respond with the new product on success", done => {
-            var uri = "/v1/product/" + product2_id;
+    describe("POST /v1/user/{id}", () => {
+        it("should respond with the new user on success", done => {
+            var uri = "/v1/user/" + user2_id;
             request(app)
                 .post(uri)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res.body);
                     res.status.should.eql(http_status.OK);
-                    should.equal(product2_id, res.body.id);
+                    should.equal(user2_id, res.body.id);
                     done();
                 });
         });
     });
 
-    it("should respond with a CONFLICT status when a gid already exists in the DB", done => {
-        var uri = "/v1/product/" + product1.gid.toString();
+    it("should respond with a CONFLICT status when a id already exists in the DB", done => {
+        var uri = "/v1/user/" + user1.id.toString();
         request(app)
             .post(uri)
             .end((err, res) => {

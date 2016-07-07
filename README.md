@@ -15,8 +15,8 @@ Starter project with node.js, mongo, TypeScript, AngularJS
 
   ```dbPath: '/Users/otherguy/Sites/yoga-finder/mongo'```
 
-  ```mongod --config mongo```
-  
+  ```mongod --config mongod.config```
+
 * Install, (build and) test, run server
 
   ```npm install```
