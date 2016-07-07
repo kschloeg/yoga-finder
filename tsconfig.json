@@ -21,8 +21,9 @@
     "compileOnSave": false,
     "files": [
         "src/api/permissions/Permissions.ts",
-        "src/api/v1/product/ProductController.ts",
-        "src/api/v1/product/ProductResponse.ts",
+        "src/api/v1/user/UserController.ts",
+        "src/api/v1/user/UserController.spec.ts",
+        "src/api/v1/user/UserResponse.ts",
         "src/config/express.ts",
         "src/config/routes.ts",
         "src/server/app.ts",
